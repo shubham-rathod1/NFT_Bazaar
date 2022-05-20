@@ -1,13 +1,16 @@
 import { Grid } from '@mui/material';
+import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import Cards from '../Sub_Module/cards';
 // var utils = require('ethers').utils;
 
 export default function Home({ market, nft }) {
   const [itemArray, setItemArray] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const loadItems = async () => {
+    setLoading(true);
     const count = await market.s_itemCount();
+    console.log('hello');
     console.log(count.toNumber());
     let items = [];
     for (let i = 1; i <= count; i++) {
@@ -35,10 +38,14 @@ export default function Home({ market, nft }) {
   };
 
   const buyNft = async (item) => {
-    await (
-      await market.PurchaseItem(item.itemId, { value: item.price })
-    ).wait();
-    loadItems();
+    try {
+      await (
+        await market.PurchaseItem(item.itemId, { value: item.price + 1 })
+      ).wait();
+      loadItems();
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     loadItems();
@@ -46,22 +53,24 @@ export default function Home({ market, nft }) {
 
   return (
     <div>
-      {itemArray.length > 0 ? (
-        <div>
-          <Grid container spacing={2}>
-            {itemArray.map((item, id) => (
-              <Grid item sm={4}>
-                <div>
-                  {/* <div>{item.name}</div>
-              <button onClick={() => buyNft(item)}>buy</button> */}
-                  <Cards item={item} buy = {buyNft} />
-                </div>
-              </Grid>
-            ))}
-          </Grid>
-        </div>
+      {!loading ? (
+        itemArray.length > 0 ? (
+          <div>
+            <Grid container spacing={2}>
+              {itemArray.map((item, id) => (
+                <Grid item sm={4}>
+                  <div>
+                    <Cards item={item} buy={buyNft} />
+                  </div>
+                </Grid>
+              ))}
+            </Grid>
+          </div>
+        ) : (
+          'no items listed'
+        )
       ) : (
-        'no items listed'
+        'loading'
       )}
     </div>
   );

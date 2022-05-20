@@ -41,7 +41,7 @@ export default function Create({ market, nft }) {
     //approve market to spend this nft;
     await (await nft.setApprovalForAll(market.address, true)).wait();
     // add nft to market;
-    const listPrice = ethers.utils.parseEther(price.toString());
+    const listPrice = ethers.utils.parseEther((price).toString(10));
     await (await market.createItem(nft.address, id, listPrice)).wait();
   };
 
@@ -66,7 +66,7 @@ export default function Create({ market, nft }) {
             placeholder='description'
           />
           <input
-            type='number'
+            // type='number'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             placeholder='price'

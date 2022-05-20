@@ -49,7 +49,7 @@ function App() {
         'loading'
       ) : (
         <div className='container-fluid mt-5'>
-          <Router market={Bazaar} nft={Nft} />
+          <Router market={Bazaar} nft={Nft} account={account} />
         </div>
       )}
     </div>

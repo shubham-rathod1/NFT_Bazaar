@@ -36,6 +36,8 @@ contract Bazaar is ReentrancyGuard {
         address indexed seller
     );
 
+    event errMsg(string msg, address indexed sender);
+
     constructor(uint256 _commision) {
         s_commision = _commision;
         s_commisionAccount = payable(msg.sender);
@@ -65,7 +67,7 @@ contract Bazaar is ReentrancyGuard {
         Item storage item = items[_itemId];
         require(_itemId > 0 && _itemId <= s_itemCount, "NFT does not exist");
         require(
-            msg.value > item.price,
+            msg.value >= item.price,
             "not enough ether to purchase and cover gas fees"
         );
         require(!item.sold, "NFT already sold");
@@ -81,10 +83,11 @@ contract Bazaar is ReentrancyGuard {
         item.sold = true;
 
         uint256 refund = msg.value - item.price;
-        refund > 0
-            ? payable(msg.sender).transfer(refund)
-            : selfdestruct(s_commisionAccount);
-
+        if (refund > 0) {
+            payable(msg.sender).transfer(refund);
+        } else {
+            emit errMsg("no refund to this sender", msg.sender);
+        }
         emit Sold(
             _itemId,
             address(item.nft),
