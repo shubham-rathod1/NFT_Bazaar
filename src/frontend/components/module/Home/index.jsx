@@ -10,7 +10,6 @@ export default function Home({ market, nft }) {
   const loadItems = async () => {
     setLoading(true);
     const count = await market.s_itemCount();
-    console.log('hello');
     console.log(count.toNumber());
     let items = [];
     for (let i = 1; i <= count; i++) {
