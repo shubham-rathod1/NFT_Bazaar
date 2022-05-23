@@ -1,0 +1,84 @@
+.nft_card_container{
+    width: 250px;
+    border: 1px solid lightgray;
+    &:hover{
+        border: 1px solid #FF000F;
+        box-shadow:  0px 0px 10px 0px lightgray;
+        cursor: pointer;
+        img{
+            transform: scale(1.1);
+            border-radius: 20px;
+       }
+    }
+    margin: 20px;
+    border-radius: 20px;
+    height: 350px;
+    .img_div{
+        width: 100%;
+        height: 200px;
+        img{
+            width: 100%;
+            height: 100%;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+    }
+    .info_div{
+        padding: 10px;
+        h3{
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0px;
+            max-width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+        }
+                p {
+                    font-size: 12px;
+                    font-weight: 400;
+                    margin: 5px 0px;
+                    color: gray;
+                    display: -webkit-box;
+                    max-width: 100%;
+                    margin: 0 auto;
+                    -webkit-line-clamp: 2;
+                    /* autoprefixer: off */
+                    -webkit-box-orient: vertical;
+                    /* autoprefixer: on */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+        .title{
+            display: flex;
+            justify-content: space-between;
+        }
+        .price_div{
+            margin: 15px 0px;
+            display: flex;
+            justify-content: space-between;
+            h5{
+                font-size: 15px;
+                font-weight: 600;
+                margin: 0px;
+                color: #121212;
+            }
+            span{
+                font-size: 12px;
+                font-weight: 400;
+                margin: 0px;
+                color: gray;
+            }
+            .buy_btn{
+                background-color: #FF000F;
+                color: #FFFFFF;
+                border: 0px;
+                margin: 5px 0px;
+                font-weight: 600;
+                border-radius: 5px;
+            }
+        }
+    }
+   
+}

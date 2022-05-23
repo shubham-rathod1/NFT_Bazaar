@@ -2,10 +2,12 @@ import { Grid } from '@mui/material';
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import Cards from '../Sub_Module/cards';
+import NftCard from '../Sub_Module/NftCard';
+import './index.scss';
 // var utils = require('ethers').utils;
 
 export default function Home({ market, nft }) {
-  const [itemArray, setItemArray] = useState([]);
+  const [itemArray, setItemArray] = useState([1,2,3,4,5,6,7,8,9,10]);
   const [loading, setLoading] = useState(false);
   const loadItems = async () => {
     setLoading(true);
@@ -47,19 +49,22 @@ export default function Home({ market, nft }) {
     }
   };
   useEffect(() => {
-    loadItems();
+    //loadItems();
   }, []);
 
   return (
-    <div>
+    <div className='home_container'>
+      <div className='title'>
+        <h2>BEST <span>NFTs</span> COLLECTIONS</h2>
+      </div>
       {!loading ? (
         itemArray.length > 0 ? (
           <div>
             <Grid container spacing={2}>
               {itemArray.map((item, id) => (
-                <Grid item sm={4}>
+                <Grid item sm={3}>
                   <div>
-                    <Cards item={item} buy={buyNft} />
+                    <NftCard/>
                   </div>
                 </Grid>
               ))}

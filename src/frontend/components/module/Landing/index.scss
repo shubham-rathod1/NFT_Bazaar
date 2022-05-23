@@ -1,0 +1,87 @@
+.landing_container {
+   // border: 1px solid red;
+    height: 700px;
+    padding: 5px 50px;
+    display: flex;
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 800px;
+        background: url('https://s3-alpha-sig.figma.com/img/9fe0/a360/22bb6a3ec51c2359d5ee65c631f17b14?Expires=1654473600&Signature=NGu~9P2uhbTRz0ba8D2PLvfvh71CQcjvUeQ~R2C1rYSrIz3jHUAgXYGB9-KACqWv7sTsobaoZp75zsdPZ8K3WX7secHqwCcskT-MfdlfABqtNKQqKWa5X8VcZ5smaDoG6WhTfwMQg-V8ouMwDbrGMz6v8VgLLYRPHNYo7peM4YZG2URV-XX6Z1sQTLyPOkHuGBN5FXqDvdoQeO5~D6wCWQpspYdOaWRFMXikX3FWptiXP0jDGFSNvcXMZ-Il1kXrcroGAY9X55JEmEPaASfwxvqoA7R~yMJ28VrEsdQPXgucDIcm8BsNr2CSovmeO1qphXGMuophXCiXxuElmJ4qwg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA') ;
+       // background-size: cover;
+        z-index: -1;
+        opacity: 5%;
+        border-bottom: 1px dotted lightgray;
+    }
+  
+    div {
+
+        
+
+        &:nth-child(1) {
+            width: 40%;
+            padding-top: 50px;
+           // border: 1px solid green;
+        }
+
+        &:nth-child(2) {
+            width: 60%;
+
+           // border: 1px solid green;
+        }
+    }
+
+    .content {
+        h1 {
+            //font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 65px;
+            line-height: 85px;
+
+            span {
+                color: #FF000F;
+            }
+
+        }
+
+        p {
+            font-weight: 400;
+            font-size: 25px;
+            line-height: 30px;
+            letter-spacing: 0.05em;
+        }
+
+        .explore_btn {
+            background-color: #FF000F;
+            color: #FFFFFF;
+            border: 0px;
+            margin: 5px 0px;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        .create_btn {
+            background-color: #FFFFFF;
+            border: 0.5px solid gray;
+            border-radius: 5px;
+            color: #121212;
+            margin: 5px 30px;
+            font-weight: 600;
+        }
+
+    }
+    .landing_wallpaper{
+        
+        div{
+            //border: 1px solid red;
+            width: 100%;
+            img{
+                width: 100%;
+            }
+        }
+    }
+}

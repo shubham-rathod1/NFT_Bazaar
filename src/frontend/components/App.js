@@ -9,6 +9,9 @@ import NftAddress from '../contractsData/MyNft-address.json';
 import NftAbi from '../contractsData/MyNft.json';
 import Header from './module/Navbar';
 import Router from './Routes';
+import Landing from './module/Landing';
+import NftCard from './module/Sub_Module/NftCard';
+import Home from './module/Home';
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -42,16 +45,18 @@ function App() {
     setLoading(false);
   };
   return (
-    <div>
+    <div className='App'>
       <Header wallet={walletConnect} account={account} />
-
-      {loading ? (
+      <Landing/>
+{/* <NftCard/> */}
+<Home/>
+      {/* {loading ? (
         'loading'
       ) : (
         <div className='container-fluid mt-5'>
           <Router market={Bazaar} nft={Nft} account={account} />
         </div>
-      )}
+      )} */}
     </div>
   );
 }

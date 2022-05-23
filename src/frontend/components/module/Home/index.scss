@@ -1,0 +1,21 @@
+.home_container{
+    padding: 5px 50px;
+    // border: 1px solid red;
+    .title{
+        h2{
+            
+                //font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 40px;
+                line-height: 85px;
+                text-align: center;
+                text-decoration: underline;
+                span {
+                    color: #FF000F;
+                }
+    
+            
+        }
+    }
+}
