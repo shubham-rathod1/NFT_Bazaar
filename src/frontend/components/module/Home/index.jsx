@@ -7,10 +7,10 @@ import './index.scss';
 // var utils = require('ethers').utils;
 
 export default function Home({ market, nft }) {
-  const [itemArray, setItemArray] = useState([1,2,3,4,5,6,7,8,9,10]);
+  const [itemArray, setItemArray] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [loading, setLoading] = useState(false);
   const loadItems = async () => {
-    setLoading(true);
+    // setLoading(true);
     const count = await market.s_itemCount();
     console.log(count.toNumber());
     let items = [];
@@ -49,13 +49,15 @@ export default function Home({ market, nft }) {
     }
   };
   useEffect(() => {
-    //loadItems();
+    loadItems();
   }, []);
 
   return (
     <div className='home_container'>
       <div className='title'>
-        <h2>BEST <span>NFTs</span> COLLECTIONS</h2>
+        <h2>
+          BEST <span>NFTs</span> COLLECTIONS
+        </h2>
       </div>
       {!loading ? (
         itemArray.length > 0 ? (
@@ -64,7 +66,7 @@ export default function Home({ market, nft }) {
               {itemArray.map((item, id) => (
                 <Grid item sm={3}>
                   <div>
-                    <NftCard/>
+                    <NftCard item={item} buy={buyNft} />
                   </div>
                 </Grid>
               ))}

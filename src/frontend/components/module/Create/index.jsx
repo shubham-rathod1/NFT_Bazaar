@@ -36,12 +36,12 @@ export default function Create({ market, nft }) {
   const mint = async (result) => {
     const uri = `https://ipfs.infura.io/ipfs/${result.path}`;
     await (await nft.mintNft(uri)).wait();
-    console.log("s_nftid",nft);
+    console.log('s_nftid', nft);
     const id = await nft.s_nftId();
     //approve market to spend this nft;
     await (await nft.setApprovalForAll(market.address, true)).wait();
     // add nft to market;
-    const listPrice = ethers.utils.parseEther((price).toString(10));
+    const listPrice = ethers.utils.parseEther(price.toString(10));
     await (await market.createItem(nft.address, id, listPrice)).wait();
   };
 

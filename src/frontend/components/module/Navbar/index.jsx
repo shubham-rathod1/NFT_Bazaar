@@ -12,7 +12,7 @@ import {
   Button,
   Link,
 } from '@mui/material';
-import './index.scss'
+import './index.scss';
 
 const pages = [
   { title: 'Market', url: '/' },
@@ -30,7 +30,9 @@ export default function Header({ wallet, account }) {
   return (
     <div className='navbar_container'>
       <div className='app_logo'>
-        <h3><span>NFT</span> BAZAR</h3>
+        <h3>
+          <span>NFT</span> BAZAR
+        </h3>
       </div>
       <div className='app_links'>
         <a>Discover</a>
@@ -39,10 +41,14 @@ export default function Header({ wallet, account }) {
         <a>Community</a>
       </div>
       <div className='wallet_icon_container'>
-      
-        <Button variant="outlined" className='connect_btn' startIcon={<AccountBalanceWalletIcon className='wallet_icon'/>}>
-        Connect
-      </Button>
+        <Button
+          onClick={() => wallet()}
+          variant='outlined'
+          className='connect_btn'
+          startIcon={<AccountBalanceWalletIcon className='wallet_icon' />}
+        >
+          Connect
+        </Button>
       </div>
     </div>
   );
