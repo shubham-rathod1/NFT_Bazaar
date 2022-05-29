@@ -1,0 +1,81 @@
+.navbar_container {
+    height: 80px;
+    display: flex;
+    // border: 1px solid red;
+    padding: 5px 50px;
+
+    div {
+        &:nth-child(1) {
+            width: 30%;
+            margin: 22px 0px;
+        }
+
+        &:nth-child(2) {
+            width: 50%
+        }
+
+        &:nth-child(3) {
+            width: 20%
+        }
+    }
+
+    .app_logo {
+        h3 {
+
+            // font-family: 'Montserrat';
+            // font-style: normal;
+            font-weight: 700;
+            font-size: 40px;
+            line-height: 49px;
+           span{
+            color: #FF000F;
+           }
+        }
+    }
+
+    .app_links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+       padding: 0px 100px;
+        a {
+            line-height: 25px;
+            color: #000000;
+            text-decoration: none;
+
+            &:hover {
+                color: #000000;
+                text-decoration: underline;
+            }
+
+            // font-family: 'Montserrat';
+            // font-style: normal;
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 24px;
+
+            color: #121212;
+
+
+        }
+    }
+    .wallet_icon_container{
+        margin: 17px 0px;
+        display: flex;
+        justify-content: end;
+            .wallet_icon{
+                color: #FF000F;
+            }
+            .connect_btn{
+                background-color: #FF000F;
+                color: #FFFFFF;
+                border: 0px;
+                overflow: hidden;   
+            }
+          
+    }
+}
+.popover_link{
+    text-decoration: none;
+    color: #121212;
+}
