@@ -64,12 +64,18 @@
         display: flex;
         justify-content: end;
             .wallet_icon{
-               // color: #FF000F;
+                color: #FF000F;
             }
             .connect_btn{
                 background-color: #FF000F;
                 color: #FFFFFF;
                 border: 0px;
+                overflow: hidden;   
             }
+          
     }
+}
+.popover_link{
+    text-decoration: none;
+    color: #121212;
 }

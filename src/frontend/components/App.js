@@ -53,15 +53,13 @@ function App() {
 
   return (
     <div className='App'>
-      <Header wallet={walletConnect} account={account} />
-      <Landing />
       {/* <NftCard/> */}
       {/* <Home /> */}
       {loading ? (
         'loading'
       ) : (
-        <div className='container-fluid mt-5'>
-          <Router market={Bazaar} nft={Nft} account={account} />
+        <div className=''>
+          <Router market={Bazaar} nft={Nft} account={account} wallet={walletConnect}  />
         </div>
       )}
     </div>

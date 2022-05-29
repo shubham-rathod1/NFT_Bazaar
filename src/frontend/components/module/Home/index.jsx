@@ -7,7 +7,7 @@ import './index.scss';
 // var utils = require('ethers').utils;
 
 export default function Home({ market, nft }) {
-  const [itemArray, setItemArray] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [itemArray, setItemArray] = useState([1,1,1,1,1,1,11,1,1,1,1,1,1,1]);
   const [loading, setLoading] = useState(false);
   const loadItems = async () => {
     // setLoading(true);
@@ -33,7 +33,7 @@ export default function Home({ market, nft }) {
         });
       }
     }
-    console.log(items);
+    console.log('NFT',items);
     setItemArray(items);
     setLoading(false);
   };
