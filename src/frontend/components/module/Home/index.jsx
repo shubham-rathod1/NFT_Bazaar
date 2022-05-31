@@ -36,7 +36,7 @@ export default function Home({ market, nft }) {
         });
       }
     }
-    console.log('NFT',items);
+    console.log('NFT', items);
     setItemArray(items);
     setLoading(false);
   };
@@ -44,7 +44,7 @@ export default function Home({ market, nft }) {
   const buyNft = async (item) => {
     try {
       await (
-        await market.PurchaseItem(item.itemId, { value: item.price + 1 })
+        await market.PurchaseItem(item.itemId, { value: item.price })
       ).wait();
       await loadItems();
     } catch (err) {
@@ -55,8 +55,6 @@ export default function Home({ market, nft }) {
     if(market.s_itemCount){
   ( async()=>{
     await loadItems();
-//const count = await market.s_itemCount();
-   // console.log("count useffect",count);
   })();
 }
   }, [market]);

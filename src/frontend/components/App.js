@@ -15,53 +15,54 @@ import Home from './module/Home';
 
 function App() {
   const [account, setAccount] = useState(null);
-  // const [signer, setSigner] = useState(undefined);
   const [Nft, setNft] = useState({});
   const [Bazaar, setBazaar] = useState({});
   const [loading, setLoading] = useState(false);
 
   //get chosen account from metamask wallet
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  
   const walletConnect = async () => {
     const accounts = await window.ethereum.request({
       method: 'eth_requestAccounts',
     });
     setAccount(accounts[0]);
     //get signer of connected account from provider
-    console.log(accounts)
-    // const signer = provider.getSigner();
-    // getContract(signer);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    // getsiner is private key instance needed to sign transaction
+    getContract(signer);
   };
 
-  const getContract = async () => {
+  const getContract = async (signer) => {
+    //console.log('this is signer', signer);
     setLoading(true);
     // fetch deployed copies here
   //  console.log('bazar', BazaarAddress.address);
     const bazaar = new ethers.Contract(
       BazaarAddress.address,
       BazaarAbi.abi,
-      provider
+      signer
     );
+    console.log(bazaar);
     setBazaar(bazaar);
-    const nft = new ethers.Contract(NftAddress.address, NftAbi.abi, provider);
+    const nft = new ethers.Contract(NftAddress.address, NftAbi.abi, signer);
     setNft(nft);
     setLoading(false);
     //console.log('this is from app', bazaar, nft);
   };
 
-  useEffect(() => {
-    getContract();
-  }, []);
-
   return (
     <div className='App'>
-      {/* <NftCard/> */}
-      {/* <Home /> */}
       {loading ? (
         'loading'
       ) : (
         <div className=''>
-          <Router market={Bazaar} nft={Nft} account={account} wallet={walletConnect}  />
+          <Router
+            market={Bazaar}
+            nft={Nft}
+            account={account}
+            wallet={walletConnect}
+          />
         </div>
       )}
     </div>

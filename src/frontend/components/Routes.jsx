@@ -8,13 +8,20 @@ import MyNfts from './module/List/myNfts';
 import Purchase from './module/Purchase';
 
 export default function Router({ market, nft, account, wallet }) {
-  console.log("this is from route",market, nft);
+  console.log('this is from route', market, nft);
   return (
     <Routes>
       <Route
         path='/'
         exact='true'
-        element={<Landing market={market} nft={nft} wallet={wallet} account={account} />}
+        element={
+          <Landing
+            market={market}
+            nft={nft}
+            wallet={wallet}
+            account={account}
+          />
+        }
       />
       <Route path='/create' element={<Create market={market} nft={nft} />} />
       <Route
