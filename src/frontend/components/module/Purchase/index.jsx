@@ -41,6 +41,7 @@ export default function Purchase({ market, nft, account }) {
   useEffect(() => {
     purchased();
   }, []);
+  
   //   const buyNft = async (item) => {
   //     const cost = item.price;
   //     console.log(

@@ -52,7 +52,7 @@ export default function Create({ market, nft }) {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
         <form onSubmit={handleSubmit}>
           <input type='file' name='file' onChange={upload} />
           <input
@@ -73,7 +73,7 @@ export default function Create({ market, nft }) {
           />
           <input type='submit' value='create' />
         </form>
-      </div>
+      </div> */}
     </div>
   );
 }
