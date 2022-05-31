@@ -24,9 +24,10 @@ function Dashboard({ market, nft, account }) {
 
   const purchased = async () => {
     // query the event for buyer;
+    setLoading(true);
     const filter = market.filters.Sold(null, null, null, null, account, null);
     const results = await market.queryFilter(filter);
-    // console.log('my filter', results);
+     console.log('my filter', results);
     const purchases = await Promise.all(
       results.map(async (item) => {
         // fetch arguments from each result
@@ -51,8 +52,10 @@ function Dashboard({ market, nft, account }) {
         return payload;
       })
     );
-    setLoading(false);
+    
+    console.log('purchased', purchases);
     setBought(purchases);
+    setLoading(false);
   };
   useEffect(() => {
     purchased();
@@ -66,11 +69,7 @@ function Dashboard({ market, nft, account }) {
   //     console.log(err);
   //   }
   // };
-  const handleSell = async (item) => {
-    console.log(item);
-    const listPrice = ethers.utils.parseEther(item.price.toString());
-    await (await market.createItem(item.nft, item.nftId, listPrice)).wait();
-  };
+
   return (
     <>
       <div className='dashboard_container'>
@@ -104,12 +103,13 @@ function Dashboard({ market, nft, account }) {
           </Drawer>
         </div>
         <div>
+          {loading && <h2>Loading...</h2>}
           <Grid container spacing={2}>
             {bought.map((item, id) => (
               <Grid item sm={7} key={id}>
                 <div>
                   {console.log('each items', item)}
-                  <NftSellCard item={item} sell={handleSell} />
+                  <NftSellCard item={item} market={market} />
                 </div>
               </Grid>
             ))}

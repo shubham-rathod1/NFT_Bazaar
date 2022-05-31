@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Modal from '@mui/material/Modal';
 import './index.scss';
 import Home from '../Home';
@@ -18,19 +19,25 @@ function Landing({ market, nft, wallet, account }) {
   const [price, setPrice] = useState(undefined);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [createLoading, setCreateLoading] = useState(false);
 
   const upload = async (file) => {
     console.log(file);
+    setUploading(true);
     if (typeof file !== 'undefined') {
       try {
         const result = await client.add(file);
         setImage(`https://ipfs.infura.io/ipfs/${result.path}`);
+        setUploading(false);
       } catch (error) {
         console.error(error);
+        setUploading(false);
       }
     }
   };
   const createNft = async () => {
+    setCreateLoading(true);
     try {
       const result = await client.add(
         JSON.stringify({ image, price, name, description })
@@ -49,6 +56,9 @@ function Landing({ market, nft, wallet, account }) {
     // add nft to market;
     const listPrice = ethers.utils.parseEther(price.toString());
     await (await market.createItem(nft.address, id, listPrice)).wait();
+   alert("NFT created successfully");
+    setCreateLoading(false);
+    handleClose();
   };
 
   const handleClose = (e) => {
@@ -140,8 +150,10 @@ function Landing({ market, nft, wallet, account }) {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
-                  <Button
-                    className='upload_btn'
+                  <LoadingButton
+                    loading={uploading}
+                    loadingPosition='start'
+                    className={`upload_btn ${image&& 'uploaded'}` }
                     variant='contained'
                     component='label'
                   >
@@ -151,16 +163,20 @@ function Landing({ market, nft, wallet, account }) {
                       type='file'
                       onChange={(e) => handleImage(e)}
                     />
-                    Upload{' '}
-                  </Button>
-                  <Button
+                    {image ? 'Uploaded' : 'Upload'}
+                  </LoadingButton>
+                  <LoadingButton
                     onClick={createNft}
+                    loading={createLoading}
+                    loadingPosition='start'
+                    style={ !image || !price || !name || !description ? { backgroundColor: 'lightgray', cursor: 'not-allowed' }: {}}
                     className='create_btn'
                     variant='contained'
                     component='span'
+                    disabled={!image || !price || !name || !description}
                   >
                     Create{' '}
-                  </Button>
+                  </LoadingButton>
                 </div>
               </Paper>
             </div>

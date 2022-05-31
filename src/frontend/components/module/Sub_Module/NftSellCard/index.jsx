@@ -6,22 +6,23 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Avatar from '@mui/material/Avatar';
 import './index.scss';
 import { ethers } from 'ethers';
-function NftSellCard({ item, sell }) {
+function NftSellCard({ item, market }) {
   const [placed, setPlaced] = React.useState(false);
   const [price, setPrice] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [placedInMarket, setPlacedInMarket] = React.useState(false);
-  console.log('item', item);
+  //console.log('item', item);
 
   const sellNFT = async () => {
     if (placed && price && !placedInMarket) {
       setPlaced(false);
       setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        setPlacedInMarket(true);
-        setPrice('');
-      }, 2000);
+      handleSell();
+      // setTimeout(() => {
+      //   setLoading(false);
+      //  // setPlacedInMarket(true);
+      //   // setPrice('');
+      // }, 2000);
     } else if (placed) {
       setPlaced(false);
       setPlacedInMarket(false);
@@ -36,10 +37,21 @@ function NftSellCard({ item, sell }) {
   //     price,
   //   };
   // };
+
+  const handleSell = async () => {
+    //console.log(item);
+    const listPrice = ethers.utils.parseEther(price.toString());
+    console.log('listPrice', item.nft, item.nftId, listPrice);
+    await (await market.createItem(item.nft, item.nftId, listPrice)).wait();
+    setLoading(false);
+    setPlacedInMarket(true);
+    setPrice('');
+  };
+
   return (
     <div className='nft_sell_card_container'>
       <div className='img_div'>
-        <img src='spidy.png' alt='nft' />
+        <img src={item.image} alt='nft' />
       </div>
       <div className='info_div'>
         <div className='title'>

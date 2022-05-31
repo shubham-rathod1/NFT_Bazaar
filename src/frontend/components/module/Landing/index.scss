@@ -115,6 +115,9 @@
                 font-weight: 600;
                 border-radius: 5px;
             }
+            .uploaded{
+                background-color: rgb(15, 201, 15);
+            }
             .create_btn {
                 background-color: #FFFFFF;
                 border: 0.5px solid gray;
@@ -131,4 +134,9 @@
             }
         }
      }
+}
+
+.MuiCircularProgress-circle, .MuiCircularProgress-circleIndeterminate, .css-176wh8e-MuiCircularProgress-circle {
+    color: black;
+    background-color: #FFFFFF;
 }
