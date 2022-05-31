@@ -7,12 +7,15 @@ import './index.scss';
 // var utils = require('ethers').utils;
 
 export default function Home({ market, nft }) {
-  const [itemArray, setItemArray] = useState([1,1,1,1,1,1,11,1,1,1,1,1,1,1]);
+  const [itemArray, setItemArray] = useState([]);
   const [loading, setLoading] = useState(false);
+
+
   const loadItems = async () => {
     // setLoading(true);
-    const count = await market.s_itemCount();
-    console.log(count.toNumber());
+   // console.log('market', market);
+     const count = await market.s_itemCount();
+     console.log("count load",count);
     let items = [];
     for (let i = 1; i <= count; i++) {
       const item = await market.items(i);
@@ -43,14 +46,20 @@ export default function Home({ market, nft }) {
       await (
         await market.PurchaseItem(item.itemId, { value: item.price + 1 })
       ).wait();
-      loadItems();
+      await loadItems();
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    loadItems();
-  }, []);
+    if(market.s_itemCount){
+  ( async()=>{
+    await loadItems();
+//const count = await market.s_itemCount();
+   // console.log("count useffect",count);
+  })();
+}
+  }, [market]);
 
   return (
     <div className='home_container'>

@@ -28,13 +28,15 @@ function App() {
     });
     setAccount(accounts[0]);
     //get signer of connected account from provider
-    const signer = provider.getSigner();
-    getContract(signer);
+    console.log(accounts)
+    // const signer = provider.getSigner();
+    // getContract(signer);
   };
 
   const getContract = async () => {
     setLoading(true);
     // fetch deployed copies here
+  //  console.log('bazar', BazaarAddress.address);
     const bazaar = new ethers.Contract(
       BazaarAddress.address,
       BazaarAbi.abi,
@@ -44,7 +46,7 @@ function App() {
     const nft = new ethers.Contract(NftAddress.address, NftAbi.abi, provider);
     setNft(nft);
     setLoading(false);
-    console.log('this is from app', bazaar, nft);
+    //console.log('this is from app', bazaar, nft);
   };
 
   useEffect(() => {
