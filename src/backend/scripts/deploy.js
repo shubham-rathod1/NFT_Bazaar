@@ -15,8 +15,8 @@ async function main() {
   console.log('mynft deployed at', mynft.address);
   console.log('bazaar deployed at', bazaar.address);
 
-  // mynft deployed at 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
-  // bazaar deployed at 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+//   mynft deployed at 0xc6eC6a86C591eCB71f10Cc3DA474A34546DB412d
+// bazaar deployed at 0x857E142E2d6DA058Fe6FBFE083501cA5DacB2b42
   // For each contract, pass the deployed contract and name to this function to save a copy of the contract ABI and address to the front end.
   saveFrontendFiles(mynft, 'MyNft');
   saveFrontendFiles(bazaar, 'Bazaar');

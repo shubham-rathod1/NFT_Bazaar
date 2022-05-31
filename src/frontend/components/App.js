@@ -34,9 +34,10 @@ function App() {
   };
 
   const getContract = async (signer) => {
-    console.log('this is signer', signer);
+    //console.log('this is signer', signer);
     setLoading(true);
     // fetch deployed copies here
+  //  console.log('bazar', BazaarAddress.address);
     const bazaar = new ethers.Contract(
       BazaarAddress.address,
       BazaarAbi.abi,
@@ -47,6 +48,7 @@ function App() {
     const nft = new ethers.Contract(NftAddress.address, NftAbi.abi, signer);
     setNft(nft);
     setLoading(false);
+    //console.log('this is from app', bazaar, nft);
   };
 
   return (
