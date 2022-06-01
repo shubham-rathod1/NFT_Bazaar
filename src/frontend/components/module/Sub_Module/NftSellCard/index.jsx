@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Tooltip from '@mui/material/Tooltip';
 import TextField from '@mui/material/TextField';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Avatar from '@mui/material/Avatar';
@@ -41,8 +42,8 @@ function NftSellCard({ item, market }) {
   const handleSell = async () => {
     //console.log(item);
     const listPrice = ethers.utils.parseEther(price.toString());
-    console.log('listPrice', item.nft, item.nftId, listPrice);
-    await (await market.createItem(item.nft, item.nftId, listPrice)).wait();
+    console.log('listPrice', item.nft, item.itemId, listPrice);
+    await (await market.createItem(item.nft, item.itemId, listPrice)).wait();
     setLoading(false);
     setPlacedInMarket(true);
     setPrice('');
@@ -58,12 +59,14 @@ function NftSellCard({ item, market }) {
           <h3> {item.name} </h3>{' '}
           <span>
             {' '}
+           <Tooltip title={item.seller} placement='left-start'>
             <Avatar
               sx={{ border: '1px solid lightgray', bgcolor: 'white' }}
               alt='Remy Sharp'
             >
               <PersonOutlineIcon className='wallet_icon' wallet_icon />
             </Avatar>{' '}
+          </Tooltip>
           </span>
         </div>
         <p> {item.description} </p>
