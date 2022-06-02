@@ -8,7 +8,6 @@ import MyNfts from './module/List/myNfts';
 import Purchase from './module/Purchase';
 
 export default function Router({ market, nft, account, wallet }) {
-  console.log('this is from route', market, nft);
   return (
     <Routes>
       <Route

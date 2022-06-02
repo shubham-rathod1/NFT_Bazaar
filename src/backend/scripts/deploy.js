@@ -10,7 +10,7 @@ async function main() {
   const mynft = await myNft.deploy();
 
   const BazaarContract = await ethers.getContractFactory("Bazaar");
-  const bazaar = await BazaarContract.deploy(5);
+  const bazaar = await BazaarContract.deploy("5");
 
   console.log('mynft deployed at', mynft.address);
   console.log('bazaar deployed at', bazaar.address);

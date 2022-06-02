@@ -10,38 +10,35 @@ export default function Home({ market, nft }) {
   const [itemArray, setItemArray] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
   const loadItems = async () => {
-    // setLoading(true);
-   // console.log('market', market);
-     const count = await market.s_itemCount();
-     console.log("count load",count);
+    setLoading(true);
+    // console.log('market', market);
+    const count = await market.s_itemCount();
     let items = [];
     for (let i = 1; i <= count; i++) {
       const item = await market.items(i);
       if (!item.sold) {
         // get uri from nft contract
-        console.log(item);
         const uri = await nft.tokenURI(item.nftId);
         // use uri to fetch nft metadata
         const response = await fetch(uri);
         const metadata = await response.json();
         items.push({
           price: item.price,
-          itemId: item.itemId,
-          seller: item.seller,
+          itemId: item.nftId,
+          owner: item.owner,
           name: metadata.name,
           description: metadata.description,
           image: metadata.image,
         });
       }
     }
-    console.log('NFT', items);
     setItemArray(items);
     setLoading(false);
   };
 
   const buyNft = async (item) => {
+    console.log('id', item.itemId);
     try {
       await (
         await market.PurchaseItem(item.itemId, { value: item.price })
@@ -52,11 +49,11 @@ export default function Home({ market, nft }) {
     }
   };
   useEffect(() => {
-    if(market.s_itemCount){
-  ( async()=>{
-    await loadItems();
-  })();
-}
+    if (market) {
+      (async () => {
+        await loadItems();
+      })();
+    }
   }, [market]);
 
   return (
@@ -80,10 +77,12 @@ export default function Home({ market, nft }) {
             </Grid>
           </div>
         ) : (
-          'no items listed'
+          <img src='not-found.jpg' />
         )
       ) : (
-        'loading'
+        <h3 style={{ textAlign: 'center' }}>
+          Please sign in to view collection
+        </h3>
       )}
     </div>
   );

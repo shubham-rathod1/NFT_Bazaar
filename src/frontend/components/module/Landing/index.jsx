@@ -23,7 +23,6 @@ function Landing({ market, nft, wallet, account }) {
   const [createLoading, setCreateLoading] = useState(false);
 
   const upload = async (file) => {
-    console.log(file);
     setUploading(true);
     if (typeof file !== 'undefined') {
       try {
@@ -56,7 +55,7 @@ function Landing({ market, nft, wallet, account }) {
     // add nft to market;
     const listPrice = ethers.utils.parseEther(price.toString());
     await (await market.createItem(nft.address, id, listPrice)).wait();
-   alert("NFT created successfully");
+    alert('NFT created successfully');
     setCreateLoading(false);
     handleClose();
   };
@@ -76,7 +75,6 @@ function Landing({ market, nft, wallet, account }) {
     display: 'none',
   });
 
-  React.useEffect(() => {}, []);
   const handleImage = (e) => {
     const file = e.target.files[0];
     upload(file);
@@ -153,7 +151,7 @@ function Landing({ market, nft, wallet, account }) {
                   <LoadingButton
                     loading={uploading}
                     loadingPosition='start'
-                    className={`upload_btn ${image&& 'uploaded'}` }
+                    className={`upload_btn ${image && 'uploaded'}`}
                     variant='contained'
                     component='label'
                   >
@@ -169,13 +167,20 @@ function Landing({ market, nft, wallet, account }) {
                     onClick={createNft}
                     loading={createLoading}
                     loadingPosition='start'
-                    style={ !image || !price || !name || !description ? { backgroundColor: 'lightgray', cursor: 'not-allowed' }: {}}
+                    style={
+                      !image || !price || !name || !description
+                        ? {
+                            backgroundColor: 'lightgray',
+                            cursor: 'not-allowed',
+                          }
+                        : {}
+                    }
                     className='create_btn'
                     variant='contained'
                     component='span'
                     disabled={!image || !price || !name || !description}
                   >
-                    Create{' '}
+                    Create
                   </LoadingButton>
                 </div>
               </Paper>

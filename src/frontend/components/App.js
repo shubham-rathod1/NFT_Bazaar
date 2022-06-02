@@ -27,7 +27,7 @@ function App() {
     });
     setAccount(accounts[0]);
     //get signer of connected account from provider
-    
+
     const signer = await provider.getSigner();
     // getsiner is private key instance needed to sign transaction
     console.log('signer', signer);
@@ -38,64 +38,49 @@ function App() {
     //console.log('this is signer', signer);
     setLoading(true);
     // fetch deployed copies here
-  //  console.log('bazar', BazaarAddress.address);
-  const accounts = await window.ethereum.request({
-    method: 'eth_accounts',
-  });
-  setAccount(accounts[0]);
-  const signer = await provider.getSigner();
-  // getsiner is private key instance needed to sign transaction
-  console.log('signer', signer);
-  setSigner(signer);
+    const accounts = await window.ethereum.request({
+      method: 'eth_accounts',
+    });
+    setAccount(accounts[0]);
+    const signer = await provider.getSigner();
+
+    // getsiner is private key instance needed to sign transaction
+    setSigner(signer);
     const bazaar = new ethers.Contract(
       BazaarAddress.address,
       BazaarAbi.abi,
       signer || provider
     );
-    console.log(bazaar);
     setBazaar(bazaar);
-    const nft = new ethers.Contract(NftAddress.address, NftAbi.abi, signer || provider);
+    const nft = new ethers.Contract(
+      NftAddress.address,
+      NftAbi.abi,
+      signer || provider
+    );
     setNft(nft);
     setLoading(false);
-    //console.log('this is from app', bazaar, nft);
   };
 
   useEffect(() => {
-  //   if(window.ethereum) {
-  //     ( async () => {
-  //       const accounts = await window.ethereum.request({
-  //         method: 'eth_accounts',
-  //       });
-  //       setAccount(accounts[0]);
-  //       const signer = await provider.getSigner();
-  //       // getsiner is private key instance needed to sign transaction
-  //       console.log('signer', signer);
-  //       setSigner(signer);
-  //     })();
-
-  // }
     getContract();
   }, []);
 
   return (
     <>
-    {/* <Header wallet={walletConnect} account={account} /> */}
-    
-    <div className='App'>
-       
-      {loading ? (
-        'loading'
-      ) : (
-        <div className=''>
-          <Router
-            market={Bazaar}
-            nft={Nft}
-            account={account}
-            wallet={walletConnect}
-          />
-        </div>
-      )}
-    </div>
+      <div className='App'>
+        {loading ? (
+          'loading'
+        ) : (
+          <div className=''>
+            <Router
+              market={Bazaar}
+              nft={Nft}
+              account={account}
+              wallet={walletConnect}
+            />
+          </div>
+        )}
+      </div>
     </>
   );
 }

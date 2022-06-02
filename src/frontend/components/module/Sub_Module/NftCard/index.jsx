@@ -15,7 +15,7 @@ function NftCard({ item, buy }) {
         <div className='title'>
           <h3> {item.name} </h3>
           <span>
-            <Tooltip title={item.seller} placement='left-start'>
+            <Tooltip title={item.owner} placement='left-start'>
               <Avatar
                 sx={{ border: '1px solid lightgray', bgcolor: 'white' }}
                 alt='Remy Sharp'

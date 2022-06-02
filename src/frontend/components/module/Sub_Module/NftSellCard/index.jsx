@@ -7,7 +7,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Avatar from '@mui/material/Avatar';
 import './index.scss';
 import { ethers } from 'ethers';
-function NftSellCard({ item, market }) {
+function NftSellCard({ item, market, nft }) {
   const [placed, setPlaced] = React.useState(false);
   const [price, setPrice] = React.useState('');
   const [loading, setLoading] = React.useState(false);
@@ -32,18 +32,12 @@ function NftSellCard({ item, market }) {
       setPlacedInMarket(false);
     }
   };
-  // const handleSell = (item) => {
-  //   let payload = {
-  //     ...item,
-  //     price,
-  //   };
-  // };
 
   const handleSell = async () => {
-    //console.log(item);
     const listPrice = ethers.utils.parseEther(price.toString());
-    console.log('listPrice', item.nft, item.itemId, listPrice);
-    await (await market.createItem(item.nft, item.itemId, listPrice)).wait();
+    console.log('sell item', item);
+    await (await nft.setApprovalForAll(market.address, true)).wait();
+    await (await market.createItem(nft.address, item.nftId, listPrice)).wait();
     setLoading(false);
     setPlacedInMarket(true);
     setPrice('');
@@ -59,28 +53,24 @@ function NftSellCard({ item, market }) {
           <h3> {item.name} </h3>{' '}
           <span>
             {' '}
-           <Tooltip title={item.seller} placement='left-start'>
-            <Avatar
-              sx={{ border: '1px solid lightgray', bgcolor: 'white' }}
-              alt='Remy Sharp'
-            >
-              <PersonOutlineIcon className='wallet_icon' wallet_icon />
-            </Avatar>{' '}
-          </Tooltip>
+            <Tooltip title={item.owner} placement='left-start'>
+              <Avatar
+                sx={{ border: '1px solid lightgray', bgcolor: 'white' }}
+                alt='Remy Sharp'
+              >
+                <PersonOutlineIcon className='wallet_icon' wallet_icon />
+              </Avatar>
+            </Tooltip>
           </span>
         </div>
         <p> {item.description} </p>
 
         <div className='price_div'>
-          {/* <div>
-            <h5>{item.price && ethers.utils.formatEther(item.price)}</h5>{' '}
-            <span>0.00</span> <span>ETH</span>
-          </div> */}
           <div className='input_div'>
             <LoadingButton
               loading={loading}
               loadingPosition='start'
-              onClick={()=>sellNFT()}
+              onClick={() => sellNFT()}
               variant='outlined'
               className={`sell_btn ${placed ? 'placed' : ''} ${
                 placedInMarket ? 'placed_in_market' : ''
