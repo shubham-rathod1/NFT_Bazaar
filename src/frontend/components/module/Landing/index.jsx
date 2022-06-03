@@ -57,7 +57,8 @@ function Landing({ market, nft, wallet, account }) {
     await (await market.createItem(nft.address, id, listPrice)).wait();
     alert('NFT created successfully');
     setCreateLoading(false);
-    handleClose();
+    setOpenModel(false);
+    window.location.reload();
   };
 
   const handleClose = (e) => {
@@ -113,7 +114,7 @@ function Landing({ market, nft, wallet, account }) {
           </div>
         </div>
         <div>
-          <Home market={market} nft={nft} />
+          <Home market={market} nft={nft} account={account} />
         </div>
         {openModel && (
           <div className='create_nft_model'>

@@ -1,12 +1,9 @@
 import { Grid } from '@mui/material';
-import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import Cards from '../Sub_Module/cards';
 import NftCard from '../Sub_Module/NftCard';
 import './index.scss';
-// var utils = require('ethers').utils;
 
-export default function Home({ market, nft }) {
+export default function Home({ market, nft, account}) {
   const [itemArray, setItemArray] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -54,7 +51,7 @@ export default function Home({ market, nft }) {
         await loadItems();
       })();
     }
-  }, [market]);
+  }, [market, account]);
 
   return (
     <div className='home_container'>
@@ -81,7 +78,7 @@ export default function Home({ market, nft }) {
         )
       ) : (
         <h3 style={{ textAlign: 'center' }}>
-          Please sign in to view collection
+          Please Connect wallet to view collection.
         </h3>
       )}
     </div>

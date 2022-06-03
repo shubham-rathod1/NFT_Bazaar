@@ -7,11 +7,11 @@ import BazaarAddress from '../contractsData/Bazaar-address.json';
 import BazaarAbi from '../contractsData/Bazaar.json';
 import NftAddress from '../contractsData/MyNft-address.json';
 import NftAbi from '../contractsData/MyNft.json';
-import Header from './module/Navbar';
+// import Header from './module/Navbar';
 import Router from './Routes';
-import Landing from './module/Landing';
-import NftCard from './module/Sub_Module/NftCard';
-import Home from './module/Home';
+// import Landing from './module/Landing';
+// import NftCard from './module/Sub_Module/NftCard';
+// import Home from './module/Home';
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -27,7 +27,6 @@ function App() {
     });
     setAccount(accounts[0]);
     //get signer of connected account from provider
-
     const signer = await provider.getSigner();
     // getsiner is private key instance needed to sign transaction
     console.log('signer', signer);
