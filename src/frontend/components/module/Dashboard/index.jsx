@@ -18,59 +18,68 @@ import Header from '../Navbar';
 import { ethers } from 'ethers';
 const drawerWidth = 240;
 function Dashboard({ market, nft, account }) {
-  console.log(market);
   const [loading, setLoading] = useState(true);
   const [bought, setBought] = useState([]);
 
-  const purchased = async () => {
+  const OwnedNfts = async () => {
+    //get owners
     // query the event for buyer;
-    const filter = market.filters.Sold(null, null, null, null, account, null);
-    const results = await market.queryFilter(filter);
-    // console.log('my filter', results);
-    const purchases = await Promise.all(
-      results.map(async (item) => {
-        // fetch arguments from each result
-        item = item.args;
-        // get uri url from nft contract
+    setLoading(true);
+    let items = [];
+    const count = await market.s_itemCount();
+    for (let i = 1; i <= count; i++) {
+      const item = await market.items(i);
+      console.log("my item",item)
+      const owner = await market.s_owners(item.nftId);
+      if (owner == ethers.utils.getAddress(account)) {
         const uri = await nft.tokenURI(item.nftId);
-        // use uri to fetch the nft metadata stored on ipfs
         const response = await fetch(uri);
         const metadata = await response.json();
-        // get total price of item (item price + fee)
-        // const totalPrice = await marketplace.getTotalPrice(i.itemId);
-        // define listed item object
         let payload = {
-          nft: item.nft,
           price: item.price,
-          itemId: item.itemId,
           name: metadata.name,
           description: metadata.description,
           image: metadata.image,
-          seller: account,
+          owner: item.owner,
+          nftId: item.nftId
         };
-        return payload;
-      })
-    );
+        items.push(payload);
+      }
+    }
+    //**this you can use to query the events */!important
+    // const filter = market.filters.Sold(null, null, null, null, account);
+    // const results = await market.queryFilter(filter);
+
+    // const purchases = await Promise.all(
+    // results.map(async (item) => {
+    // fetch arguments from each result
+    // item = item.args;
+    // get uri url from nft contract
+    // const uri = await nft.tokenURI(item.nftId);
+    // use uri to fetch the nft metadata stored on ipfs
+    // const response = await fetch(uri);
+    // const metadata = await response.json();
+    // get total price of item (item price + fee)
+    // const totalPrice = await marketplace.getTotalPrice(i.itemId);
+    // define listed item object
+    // let payload = {
+    //   price: item.price,
+    //   itemId: item.itemId,
+    //   name: metadata.name,
+    //   description: metadata.description,
+    //   image: metadata.image,
+    //   owner: item.owner,
+    // };
+    // return payload;
+    // })
+    // );
+
+    setBought(items);
     setLoading(false);
-    setBought(purchases);
   };
   useEffect(() => {
-    purchased();
+    OwnedNfts();
   }, []);
-  // const buyNft = async (item) => {
-  //   try {
-  //     await (
-  //       await market.PurchaseItem(item.itemId, { value: item.price })
-  //     ).wait();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  const handleSell = async (item) => {
-    console.log(item);
-    const listPrice = ethers.utils.parseEther(item.price.toString());
-    await (await market.createItem(item.nft, item.nftId, listPrice)).wait();
-  };
   return (
     <>
       <div className='dashboard_container'>
@@ -104,12 +113,12 @@ function Dashboard({ market, nft, account }) {
           </Drawer>
         </div>
         <div>
+          {loading && <h2>Loading...</h2>}
           <Grid container spacing={2}>
-            {bought.map((item, id) => (
-              <Grid item sm={7} key={id}>
+            {bought?.map((item, id) => (
+              <Grid item sm={6} key={id}>
                 <div>
-                  {console.log('each items', item)}
-                  <NftSellCard item={item} sell={handleSell} />
+                  <NftSellCard item={item} market={market} nft={nft} />
                 </div>
               </Grid>
             ))}
